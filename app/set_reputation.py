@@ -111,7 +111,7 @@ def read_input_file(filename):
 def file_exist(filename):
     return os.path.isfile(filename)
 
-def set_reputation(dxl_config_file, ioc_list):
+def set_reputation(dxl_config_file, ioc_list, force):
     # Create DXL configuration from file
     config = DxlClientConfig.create_dxl_config_from_file(dxl_config_file)
 
@@ -165,8 +165,7 @@ def set_reputation(dxl_config_file, ioc_list):
             # Skip the application
             # 
             if has_definitive_reputation and force == False:
-                logger.info("Information: There is a reputation from another provider for the file %s, \n \
-                            External Reputation is not necessary." % file_name)
+                logger.info("Information: There is a reputation from another provider for the file %s, External Reputation is not necessary." % file_name)
                 ioc_exist = ioc_exist + 1
             else:
                 #
@@ -204,6 +203,7 @@ def main():
 
     file_to_import  = option.import_file
     dxl_config_file = option.dxl_config_file
+    force           = option.force
 
     if not file_exist(file_to_import):
         logger.error("Reputation file to import doesn't exist. Check path: %s" % file_to_import)
@@ -215,7 +215,7 @@ def main():
 
     ioc_list = read_input_file(file_to_import)
 
-    ioc_processed = set_reputation(dxl_config_file, ioc_list)
+    ioc_processed = set_reputation(dxl_config_file, ioc_list, force)
 
     logger.info("Processed IoC: %i"%ioc_processed["total_ioc_processed"])
     logger.info("Established IoC: %i"%ioc_processed["ioc_set"])

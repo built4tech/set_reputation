@@ -1,8 +1,12 @@
 Procedimiento para montar el entorno
 
-1.- pip install -r requirements
+1.- Clonamos el repositorio
 
-2.- dxlclient provisionconfig config myserver client1 -u username -p password
+	git clone https://github.com/built4tech/set_reputation.git
+
+2.- pip install -r requirements.txt
+
+3.- dxlclient provisionconfig config myserver client1 -u username -p password
 
 	config 		--> Ruta donde se guardaran los ficheros de configuración (certificados, etc.)
 	myserver 	--> Sustituir por la dirección IP o FQDN del servidor
@@ -27,7 +31,7 @@ Procedimiento para montar el entorno
 	dxlclient updateconfig config myserver -u username -p password
 
 
-3.- Crear un fichero de texto tipo csv con el siguiente formato: file_name, sha1, sha256, md5, trust_level, file_comment
+4.- Crear un fichero de texto tipo csv con el siguiente formato: file_name, sha1, sha256, md5, trust_level, file_comment
 
 psservice64.exe,30496D2F60A2B10AE0DA39E5ADF107B3B43CCCCD,6DE3137B3088B2C2C311A540F9AAEB57E9FD38259CB18875F2380EE74EC1C7AF,029D745D114C0A69CF0CB12450CB7B74,KNOWN_MALICIOUS,"Submitted via set_reputation para FCC"
 pslist.exe,FE41E35485D4C5B61EC555C1C38965F837759585,9927831E111AC61FD7645BF7EFA1787DB1A3E85B6F64A274CA04B213DC27FD08,2C23D6223D4AFF81AC137B6989BCE05C,KNOWN_MALICIOUS,"Submitted via set_reputation para FCC"
