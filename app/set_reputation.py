@@ -135,9 +135,9 @@ def set_reputation(dxl_config_file, ioc_list, force):
 
         for ioc in ioc_list:
 
-            fileSHA1  =  hashlib.sha1(ioc["sha1"].encode('utf-8')).hexdigest()
-            fileSHA256 = hashlib.sha256(ioc["sha256"].encode('utf-8')).hexdigest()
-            fileMD5    = hashlib.md5(ioc["md5"].encode('utf-8')).hexdigest()
+            fileSHA1  =  ioc["sha1"]
+            fileSHA256 = ioc["sha256"]
+            fileMD5    = ioc["md5"]
 
             hashes = {
                       HashType.MD5: fileMD5,
@@ -146,7 +146,13 @@ def set_reputation(dxl_config_file, ioc_list, force):
                      }
             file_name    = ioc["file_name"]
             file_comment = ioc["file_comment"]
-            reputation   = REPUTATION_VALUES[ioc["reputation"]]
+
+            try:
+                reputation   = REPUTATION_VALUES[ioc["reputation"]]
+
+            except Exception as er:
+                logger.error("Error getting reputation value, for entry %s check spelling" % file_name)
+                continue
 
             #
             # Request reputation for the file
